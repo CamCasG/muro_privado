@@ -1,0 +1,35 @@
+#registro, #inicio{
+    border: 2px solid black;
+    margin-top: 20px;
+}
+
+#registro{
+    background: rgb(89,187,187);
+    background: linear-gradient(90deg, rgba(89,187,187,0.5298494397759104) 0%, rgba(0,170,228,1) 100%);
+}
+
+
+#inicio{
+    background: rgb(234,193,2);
+    background: linear-gradient(0deg, rgba(234,193,2,1) 0%, rgba(212,78,106,1) 100%);
+}
+
+#barra{
+    background-color: #7c7c7c;
+}
+
+#enviarmensaje{
+    border: 2px solid black;
+    padding: 5px;
+    margin-top: 50px;
+    background-color: #2C3E50;
+    border-radius: 20px;
+}
+
+#mensajes_recibidos{
+    border: 2px solid black;
+    padding: 5px;
+    margin-top: 50px;
+    border-radius: 20px;
+    background-color: #EBDEF0;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu muro</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+    
+    <!-- Barra navegadora -->
+    <nav class="d-flex justify-content-between align-items-center py-2 px-5" id="barra">
+        <h1 class="text-center text-light">Muro privado</h1>
+        <h2 class="text-center text-light">¡Bienvenido, {{usuario.nombre}}!</h2>
+        <a href="/logout" class="btn btn-info">Cerrar sesión</a>
+    </nav>
+
+    <main class="d-flex justify-content-around">
+
+    <!-- mensajes -->
+    <div class="col-5 text-dark" id="mensajes_recibidos">
+        <h2 class="text-center">Hay {{mensajes|length}} mensajes para ti</h2>
+        
+        {% for mensaje in mensajes %}
+        <div class="card bg-light my-2">
+            <div class="card-body">
+                <h3 class="card-title">{{ mensaje.enviado }} dijo:</h3>
+                <p class="card-text">{{ mensaje.mensaje }}</p>
+            </div>
+            <div class="card-footer">
+                <a href="/borrar/mensaje/{{mensaje.id}}" class="btn btn-danger">Borrar</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- enviar mensaje -->
+    <div class="col-5 text-light" id="enviarmensaje">
+        <h2 class="text-center">Envía un mensaje:</h2>
+        {% for todo in usuarios %}
+            {% if todo.id != session.user_id %}
+            <!-- Todos los usuarios que NO estén en la user_id de sesión -->
+            <form class="p-2" action="/enviarmensaje" method="POST">
+                <!-- quien envía el mensaje es el usuario guardado en la session -->
+                <input type="hidden" name="enviado_id" value={{session.user_id}}>
+                <!-- quién lo recibe debe estar registrado en la BD -->
+                <input type="hidden" name="recibido_id" value={{todo.id}}>
+                <label for="recibido_id">Envíale un mensaje a {{todo.nombre}}:</label>
+                <textarea class="form-control" name="mensaje" cols="20" rows="4"></textarea>
+                <input type="submit" value="Enviar mensaje" class="btn btn-success">
+            </form>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    </main>
+
+</body>
+</html>
